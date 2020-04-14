@@ -29,7 +29,7 @@ function App() {
       <form id="logIn">
              <input className=" el logInEl"/>
             <input className="el logInEl" type= "password"/>
-            <button type="submit">Submit</button>
+            <button  className = "loginBtn"  type="submit">Submit</button>
         </form>
   );
 }

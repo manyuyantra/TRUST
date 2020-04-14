@@ -10,23 +10,35 @@
 
  #logIn{  
     position: relative;
-    width: 50%;
+    width: 30%;
     margin: 0% auto;
     padding: 4% 0;
+    box-shadow: 0px 0px 32px -1px rgba(0,0,0,0.46);
+    background-color: #b0b0b0;
+    height:30%;
 }
 
 .el{
-  border-radius: 5px;
     border-style: none;
 }
 
  .logInEl{
-  width: 30%;
+  width: 45%;
   height: 12%;
   margin: 3%;
-  margin-left: 35%;
+  margin-left: 25%;
   min-height: 30px;
   max-width: 200px;
+  float:left;
+ }
+
+ .loginBtn{
+  float: left;
+  clear: both;
+  left: 25%;
+  position: relative;
+  width: 43.5%;
+  height:15%;
  }
  body{
   background: rgb(45,253,93);
