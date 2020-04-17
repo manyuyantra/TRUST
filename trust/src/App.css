@@ -14,7 +14,7 @@ body{
   opacity:1 !important;
 }
 .displayNone{
-  display: none;
+  display: none !important;
 }
 .banner{
   height: 10%;
