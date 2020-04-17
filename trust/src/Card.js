@@ -8,7 +8,6 @@ export default class Card extends  React.Component{
        this.elRef = React.createRef();
    }
     componentDidMount(){
-        console.log(this.props.keys)
         setTimeout(() => {
             let el = this.elRef.current;
             el.className = "card opacity1";

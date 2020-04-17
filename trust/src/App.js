@@ -4,11 +4,13 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import protectedroute from './protectedroute';
 import auth from './auth';
 import Portal from './Portal'
-import LoginForm from './LoginForm'
+import LoginForm from './LoginForm';
+import Banner from './Banner'
 
 function App() {
       return (
             <Router>
+                  <Banner></Banner>
                   <Switch>
                         <Route path="/" exact render={(props) => {
                               return (
