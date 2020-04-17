@@ -1,14 +1,29 @@
-import React ,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
- 
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import protectedroute from './protectedroute';
+import auth from './auth';
+import Portal from './Portal'
+import LoginForm from './LoginForm'
+
 function App() {
- return (
-      <form id="logIn">
-            <input  placeholder="NAME" className=" el logInEl"/>
-            <input placeholder = "PASSWORD" className="el logInEl" type= "password"/>
-            <button  className = "loginBtn"  type="submit">Submit</button>
-        </form>
-  );
+      return (
+            <Router>
+                  <Switch>
+                        <Route path="/" exact render={(props) => {
+                              return (
+                                    <LoginForm {...props}></LoginForm>
+
+                              )
+                        }}></Route>
+                        <Route path="/main" render={() => {
+                              return <Portal />
+                        }}></Route>
+                  </Switch>
+
+            </Router>
+
+      );
 }
 
 export default App;
