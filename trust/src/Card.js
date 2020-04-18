@@ -6,6 +6,7 @@ export default class Card extends  React.Component{
    constructor(props){
        super(props);
        this.elRef = React.createRef();
+       this.navigate =  this.navigate.bind(this);
    }
     componentDidMount(){
         setTimeout(() => {
@@ -14,9 +15,12 @@ export default class Card extends  React.Component{
         }, (this.props.__i+1) *150);
        
     }
+    navigate(){
+        this.props.history.push(this.props.Route)
+    }
     render(){
         return (
-              <div ref = {this.elRef} className = "card">
+              <div ref = {this.elRef}  onClick= {this.navigate} className = "card">
                   <b className = "cardTitle" >{this.props.Name}</b>
                 <p className = "cardValue" >{this.props.Value}</p>
               </div>
