@@ -1,4 +1,4 @@
-export default class Authenticator {
+ class Authenticator {
 
     constructor() {
         this.isAuthenticated = false;
@@ -15,3 +15,5 @@ export default class Authenticator {
         return this.isAuthenticated;
     }
 }
+
+export default new Authenticator();
