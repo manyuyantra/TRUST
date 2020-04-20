@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Portal from './Portal'
 import LoginForm from './LoginForm';
 import Banner from './Banner';
@@ -17,9 +17,9 @@ function App(props) {
                   <Banner></Banner>
                   <Switch>
                         <Route render={( props)=>{if(auth.isAuthenticated){
-                                  props.history.push("/main");
-                                  return null;
+                                 return <Redirect to="/main"></Redirect>;
                             }else{
+                                  console.log(":((");
                                   return <LoginForm {...props} auth={auth}></LoginForm> 
                             }
                             

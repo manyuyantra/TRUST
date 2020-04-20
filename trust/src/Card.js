@@ -5,15 +5,23 @@ import React from  'react';
 export default class Card extends  React.Component{
    constructor(props){
        super(props);
+       this.timersArray =[];
        this.elRef = React.createRef();
        this.navigate =  this.navigate.bind(this);
    }
     componentDidMount(){
-        setTimeout(() => {
+        let timer  = setTimeout(() => {
             let el = this.elRef.current;
             el.className = "card opacity1";
         }, (this.props.__i+1) *150);
-       
+        
+       this.timersArray.push(timer);
+    }
+    componentWillUnmount(){
+        this.timersArray.forEach(timer => {
+             clearTimeout(timer);
+        });
+        this.timersArray = [];
     }
     navigate(){
         this.props.history.push(this.props.Route)
