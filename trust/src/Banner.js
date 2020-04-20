@@ -8,6 +8,11 @@ class Banner extends React.Component {
             visible: false
         }
         this.elRef = React.createRef();
+        this.onClick = this.onClick.bind(this)
+    }
+    onClick(){
+       this.props.auth.removeAuthentication();
+       this.props.history.push("/");
     }
     static getDerivedStateFromProps(props) {
         if (props.history.location.pathname !== "/") {
@@ -22,7 +27,7 @@ class Banner extends React.Component {
 
             <div ref={this.elRef} className={this.state.visible ? "banner" : "banner displayNone"} >
                 <b className="bannerItem">Welcome</b>
-                <b className="bannerItem">LogOut</b>
+                <b className="bannerItem" style={{"cursor":"pointer"}} onClick = {this.onClick}>LogOut</b>
 
             </div>
 
