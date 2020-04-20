@@ -14,7 +14,7 @@ import auth from './auth';
 function App(props) {
       return (
             <Router>
-                  <Banner></Banner>
+                  <Banner auth= {auth}></Banner>
                   <Switch>
                         <Route render={( props)=>{if(auth.isAuthenticated){
                                  return <Redirect to="/main"></Redirect>;
