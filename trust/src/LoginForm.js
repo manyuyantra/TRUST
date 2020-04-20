@@ -11,17 +11,15 @@ export default class LoginForm extends React.Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
     onSubmit(e) {
-
         if (!this.nameRef.current.value || !this.passRef.current.value) {
             e.preventDefault();
             alert("Oh bad, No login with  empty values....")
-            return
         } else if (this.nameRef.current.value.trim() !== "one" || this.passRef.current.value.trim() !== 'one') {
-
             e.preventDefault();
             alert("Good guess, but either password or name is wrong. ")
-            return
+          
         } else {
+            this.props.auth.setAuthentication();
             this.props.history.push("/main");
         }
 

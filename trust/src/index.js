@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import authenticator from './auth';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App auth={authenticator} />
   </React.StrictMode>,
   document.getElementById('root')
 );
