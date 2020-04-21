@@ -50,7 +50,7 @@ body {
 
 .membersHeader {
   font-size: 1em;
-  font-weight: bold;
+  font-weight: 700;
   height: 7% !important;
   align-items: center;
 }
@@ -61,9 +61,10 @@ body {
 
 .membersTable {
   height: 80%;
-  width: 80%;
+  width: 95%;
+  overflow: auto;
   margin: 0 auto;
-  margin-top: 2%;
+  margin-top: 0%;
   background-color: #cac4d0;
 }
 

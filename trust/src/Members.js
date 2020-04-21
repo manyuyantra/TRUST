@@ -4,21 +4,13 @@ import React from 'react'
 export default class Members extends React.Component {
     constructor(pr) {
         super(pr);
+        let arr = [];
+
+        for(let  i =0;i<50;i++){
+            arr.push({ "Name": "Dummy", "Email": "DDUMMY@MAILME.COM", "CONTACT": "#922311" })
+        }
         this.state = {
-            "members": [
-                { "Name": "Dummy", "Email": "DDUMMY@MAILME.COM", "CONTACT": "#922311" },
-                { "Name": "Dummy", "Email": "DDUMMY@MAILME.COM", "CONTACT": "#922311" },
-                { "Name": "Dummy", "Email": "DDUMMY@MAILME.COM", "CONTACT": "#922311" },
-                { "Name": "Dummy", "Email": "DDUMMY@MAILME.COM", "CONTACT": "#922311" },
-                { "Name": "Dummy", "Email": "DDUMMY@MAILME.COM", "CONTACT": "#922311" },
-                { "Name": "Dummy", "Email": "DDUMMY@MAILME.COM", "CONTACT": "#922311" },
-                { "Name": "Dummy", "Email": "DDUMMY@MAILME.COM", "CONTACT": "#922311" },
-                { "Name": "Dummy", "Email": "DDUMMY@MAILME.COM", "CONTACT": "#922311" },
-                { "Name": "Dummy", "Email": "DDUMMY@MAILME.COM", "CONTACT": "#922311" },
-                { "Name": "Dummy", "Email": "DDUMMY@MAILME.COM", "CONTACT": "#922311" }
-
-
-            ]
+            "members": arr
 
         }
         this.generateRow = this.generateRow.bind(this);
@@ -40,9 +32,12 @@ export default class Members extends React.Component {
     }
 
     render() {
-        return <div className="membersTable">{
+
+        return( <> 
+        {
             this.generateRow({ Name: "NAME", Email: "EMAIL", "CONTACT": "CONTACT" },
                 { clas: "membersHeader" })}
-            {this.state.members.map((obj) => this.generateRow(obj))}</div>
+        <div className="membersTable">
+            {this.state.members.map((obj) => this.generateRow(obj))}</div></>)
     }
 }
