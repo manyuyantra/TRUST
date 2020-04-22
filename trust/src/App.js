@@ -18,15 +18,15 @@ import auth from "./auth";
 
 function App(props) {
   return (
-    <Router>
-      <Banner auth={auth}></Banner>
+    <Router basename="/trust">
+      <Banner   auth={auth}></Banner>
       <Switch>
         <Route
           render={(props) => {
             if (auth.isAuthenticated) {
+                  console.log("hold....")
               return <Redirect to="/main"></Redirect>;
             } else {
-              console.log(":((");
               return <LoginForm {...props} auth={auth}></LoginForm>;
             }
           }}
