@@ -14,15 +14,14 @@ import { withRouter } from "react-router";
 
 function App(props) {
   React.useEffect(() => {
-     props.history.listen((newLocation, action) => {
+    props.history.listen((newLocation, action) => {
       if (action === "POP") {
         if (auth.isAuthenticated && newLocation.pathname === "/") {
           props.history.goForward();
         }
       }
     });
-
-  },[props.history]);
+  }, [props.history]);
 
   return (
     <>
