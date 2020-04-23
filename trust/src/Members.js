@@ -19,9 +19,10 @@ export default class Members extends React.Component {
     this.generateRow = this.generateRow.bind(this);
   }
 
-  generateRow(obj, additionalClas) {
+  generateRow(obj, additionalClas,key) {
     return (
       <div
+        key={key}
         className={
           additionalClas ? additionalClas.clas + " membersRow" : "membersRow"
         }
@@ -42,7 +43,7 @@ export default class Members extends React.Component {
           { clas: "membersHeader" }
         )}
         <div className="membersTable">
-          {this.state.members.map((obj) => this.generateRow(obj))}
+          {this.state.members.map((obj,i) => this.generateRow(obj,false,i))}
         </div>
       </>
     );

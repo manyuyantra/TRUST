@@ -1,11 +1,6 @@
 import React from "react";
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Portal from "./Portal";
 import LoginForm from "./LoginForm";
 import Banner from "./Banner";
@@ -15,20 +10,27 @@ import Transactions from "./Transactions";
 import Account from "./Account";
 import ProtectedRoute from "./protectedroute";
 import auth from "./auth";
+import { withRouter } from "react-router";
 
 function App(props) {
+  React.useEffect(() => {
+     props.history.listen((newLocation, action) => {
+      if (action === "POP") {
+        if (auth.isAuthenticated && newLocation.pathname === "/") {
+          props.history.goForward();
+        }
+      }
+    });
+
+  },[props.history]);
+
   return (
-    <Router basename="/trust">
-      <Banner   auth={auth}></Banner>
+    <>
+      <Banner auth={auth}></Banner>
       <Switch>
         <Route
           render={(props) => {
-            if (auth.isAuthenticated) {
-                  console.log("hold....")
-              return <Redirect to="/main"></Redirect>;
-            } else {
-              return <LoginForm {...props} auth={auth}></LoginForm>;
-            }
+            return <LoginForm {...props} auth={auth}></LoginForm>;
           }}
           auth={auth}
           path="/"
@@ -45,8 +47,8 @@ function App(props) {
         <ProtectedRoute path="/reciept" component={Reciept}></ProtectedRoute>
         <ProtectedRoute path="*" component={() => "No DATA.."}></ProtectedRoute>
       </Switch>
-    </Router>
+    </>
   );
 }
 
-export default App;
+export default withRouter(App);
