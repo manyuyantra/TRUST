@@ -30,7 +30,7 @@ export default class LoginForm extends React.Component {
       this.formRef.current && (this.formRef.current.className = "opacity1");
     }, 100);
   }
-  componentWillMount() {
+  componentWillUnmount() {
     clearTimeout(this.timer);
     this.timer = null;
   }

@@ -59,13 +59,21 @@ body {
   background-color: #a4b4c2;
 }
 
+.optout {
+  background-color: #f25656 !important;
+}
+
 .membersTable {
   height: 70%;
   width: 95%;
   overflow: auto;
   margin: 0 auto;
-  margin-top: 0%;
+  margin-top: 3%;
   background-color: #cac4d0;
+}
+
+#dynamicInput {
+  position: absolute;
 }
 
 .membersRow {
