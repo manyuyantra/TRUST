@@ -1,5 +1,6 @@
 import React from "react";
 import Row from "./Row";
+import Tablefooter from "./Tablefooter";
 export default class Members extends React.Component {
   constructor(pr) {
     super(pr);
@@ -119,13 +120,13 @@ export default class Members extends React.Component {
       };
     });
   }
-  helper(){
+  helper() {
     alert(`
         1) TO REMOVE USERS 
             select opt-out checkbox and click modify the details.
         2) TO CHANGE ANY DETAILS
             click the respective column. 
-            input box will appear. make changes and click outside. then click modify the details`)
+            input box will appear. make changes and click outside. then click modify the details`);
   }
   Optout(props) {
     const [s, uS] = React.useState(props.obj.OPTOUT);
@@ -178,6 +179,7 @@ export default class Members extends React.Component {
     );
     return uuid;
   }
+  Footer() {}
   render() {
     const Textarea = this.Textarea;
     const Optout = this.Optout;
@@ -202,15 +204,10 @@ export default class Members extends React.Component {
             );
           })}
         </div>
-        <div className="modifyMembers">
-          <button className="button">ADD USER</button>
-          <button className="button" onClick={this.modifyData}>
-            MODIFY THE DETAILS
-          </button>
-          <button className="button" onClick={this.helper}>
-           HELP
-          </button>
-        </div>
+        <Tablefooter
+          modifyData={this.modifyData}
+          helper={this.helper}
+        ></Tablefooter>
       </>
     );
   }
