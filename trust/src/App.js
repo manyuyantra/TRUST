@@ -39,10 +39,7 @@ function App(props) {
         <ProtectedRoute path="/main" exact component={Portal}></ProtectedRoute>
         <ProtectedRoute path="/members" component={Members}></ProtectedRoute>
         <ProtectedRoute path="/account" component={Account}></ProtectedRoute>
-        <ProtectedRoute
-          path="/transactions"
-          component={Transactions}
-        ></ProtectedRoute>
+        <ProtectedRoute path="/transactions" component={Transactions}></ProtectedRoute>
         <ProtectedRoute path="/reciept" component={Reciept}></ProtectedRoute>
         <ProtectedRoute path="*" component={() => "No DATA.."}></ProtectedRoute>
       </Switch>

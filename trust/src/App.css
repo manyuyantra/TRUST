@@ -141,6 +141,33 @@ body {
   border-style: none;
 }
 
+.cell {
+  cursor: pointer;
+}
+
+.pointerEventsNone {
+  pointer-events: none !important;
+}
+
+.addUser {
+  position: absolute;
+  bottom: 25%;
+  width: 25%;
+  background-color: blueviolet;
+  height: 15%;
+  margin-left: 25%;
+  display: flex;
+  flex-direction: column;
+  padding: 1%;
+  min-width: 280px;
+}
+
+.addUser .row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 body {
   background: rgb(45, 253, 93);
   background: linear-gradient(0deg, rgba(45, 253, 93, 1) 0%, rgba(34, 193, 195, 1) 100%);
