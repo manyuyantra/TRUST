@@ -6,6 +6,7 @@ export default class Row extends React.PureComponent {
     const obj = this.props.obj;
     const alerter = this.props.alerter;
     const Optout = this.props.optout;
+    const noEvent = this.props.noEvent;
     return (
       <div
         key={this.props.rowdId}
@@ -24,14 +25,20 @@ export default class Row extends React.PureComponent {
             <Optout obj={obj}></Optout>
           </div>
         )}
-        <div className="cell" onClick={(event) => alerter(event, obj, "Name")}>
+        <div
+          className="cell"
+          onClick={noEvent ? null : (event) => alerter(event, obj, "Name")}
+        >
           {obj.isEditingActive && obj.k === "Name" ? (
             <Textarea obj={obj} value={obj[obj.k]} />
           ) : (
             this.props.obj.Name
           )}
         </div>
-        <div className="cell" onClick={(event) => alerter(event, obj, "Email")}>
+        <div
+          className="cell"
+          onClick={noEvent ? null : (event) => alerter(event, obj, "Email")}
+        >
           {obj.isEditingActive && obj.k === "Email" ? (
             <Textarea obj={obj} value={obj[obj.k]} />
           ) : (
@@ -40,7 +47,7 @@ export default class Row extends React.PureComponent {
         </div>
         <div
           className="cell"
-          onClick={(event) => alerter(event, obj, "CONTACT")}
+          onClick={noEvent ? null : (event) => alerter(event, obj, "CONTACT")}
         >
           {obj.isEditingActive && obj.k === "CONTACT" ? (
             <Textarea obj={obj} value={obj[obj.k]} />
@@ -50,7 +57,7 @@ export default class Row extends React.PureComponent {
         </div>
         <div
           className="cell"
-          onClick={(event) => alerter(event, obj, "Address")}
+          onClick={noEvent ? null : (event) => alerter(event, obj, "Address")}
         >
           {obj.isEditingActive && obj.k === "Address" ? (
             <Textarea obj={obj} value={obj[obj.k]} />
