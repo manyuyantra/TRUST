@@ -78,7 +78,7 @@ body {
 
 .membersRow {
   display: flex;
-  height: 7%;
+  min-height: 7%;
   justify-content: space-evenly;
 }
 
@@ -104,7 +104,7 @@ body {
   font-size: 200%;
 }
 
-#logIn {
+#logIn,.addUser{
   position: relative;
   width: 30%;
   margin: 0% auto;
@@ -143,19 +143,24 @@ body {
 
 .cell {
   cursor: pointer;
+  min-width: 19%;
+  margin: 1px;
 }
 
 .pointerEventsNone {
   pointer-events: none !important;
 }
-
+button{
+  background-color: #82d382 !important;
+  border-style: none !important;
+}
 .addUser {
   position: absolute;
-  bottom: 25%;
+  bottom: 45%;
   width: 25%;
-  background-color: blueviolet;
-  height: 15%;
-  margin-left: 25%;
+  opacity: 1;
+  height: 20%;
+  left: 35%;
   display: flex;
   flex-direction: column;
   padding: 1%;
@@ -166,6 +171,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin:1%
 }
 
 body {

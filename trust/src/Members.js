@@ -208,7 +208,7 @@ export default class Members extends React.Component {
               : "membersTable"
           }
         >
-          <Row obj={this.headerObj} additionalClas={this.additionalClas} />
+          <Row obj={this.headerObj} additionalClas={this.additionalClas} noEvent = {true} />
 
           {this.state.members.map((obj, i) => {
             return (
@@ -229,30 +229,30 @@ export default class Members extends React.Component {
           <form className="addUser" onSubmit={(e) => e.preventDefault()}>
             <div className="row">
               <label>NAME:</label>
-              <input name="Name" type="text" />
+              <input className="el loginEl" name="Name" type="text" />
             </div>
             <div className="row">
               <label>EMAIL:</label>
-              <input name="Email" type="text" />
+              <input className="el loginEl" name="Email" type="text" />
             </div>
             <div className="row">
               <label>PHONE:</label>
-              <input name="CONTACT" type="text" />
+              <input className=" el loginEl"  name="CONTACT" type="text" />
             </div>
             <div className="row">
               <label>ADDRESS:</label>
-              <input name="Address" type="text" />
+              <input className="el loginEl"  name="Address" type="text" />
             </div>
             <div className="row">
               <button
                 onClick={() =>
                   this.addUser(serialize(document.querySelector(".addUser")))
                 }
-                style={{ marginLeft: "25%" }}
+                style={{marginRight: "15%" }}
               >
                 OK
               </button>
-              <button onClick={this.unMountForm} style={{ marginRight: "25%" }}>
+              <button onClick={this.unMountForm}  style={{ marginRight: "15%" }}>
                 CANCEL
               </button>
             </div>
