@@ -2,9 +2,9 @@
   text-align: center;
 }
 
-html, body, #root {
+/* html, body, #root {
   height: 100%;
-}
+} */
 
 body {
   font-size: 100%;
@@ -89,6 +89,7 @@ body {
   box-shadow: 0px 0px 3px 0px;
   cursor: pointer;
   border: none;
+
 }
 
 .modifyMembers {
@@ -104,7 +105,58 @@ body {
   font-size: 200%;
 }
 
-#logIn,.addUser{
+.loginDiv{
+  width:90%;
+  margin:auto;
+  margin-top:20%;
+  padding:30px 15px;
+  background-color: #fff;
+  border-radius: 4px;
+  /* box-shadow: 0 0 6px #ddd;   */
+  -webkit-box-shadow: 0px 0px 38px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 38px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 38px 0px rgba(0,0,0,0.75);
+}
+
+#logIn input {
+  margin:auto;
+  margin-bottom: 20px;
+  padding:8px 10px;
+  border:1px solid #ddd;
+  display: block;
+  border-bottom: 2px solid #c51d00; 
+}
+
+#logIn input:focus {
+  outline: none;
+  border-bottom:2px solid #009688;
+}
+
+/* For Responsive */
+@media only screen and (min-width: 768px) {
+  .loginDiv{
+    width: 60%;
+    margin-top:10%;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .loginDiv{
+    margin-top:5%;
+    width: 30%;
+  }
+  #logIn input {
+    width:60%;
+  }
+}
+
+
+.loginDiv h4 {
+  margin:0;
+  margin:10px 0 20px;
+  text-align: center;
+}
+.addUser{
   position: relative;
   width: 30%;
   margin: 0% auto;
@@ -120,26 +172,6 @@ body {
   border-style: none;
 }
 
-.logInEl {
-  width: 45%;
-  height: 12%;
-  margin: 3%;
-  margin-left: 25%;
-  min-height: 30px;
-  text-align: center;
-  float: left;
-}
-
-.loginBtn {
-  float: left;
-  clear: both;
-  left: 25%;
-  position: relative;
-  width: 45%;
-  height: 15%;
-  background-color: #82d382;
-  border-style: none;
-}
 
 .cell {
   cursor: pointer;
@@ -150,9 +182,15 @@ body {
 .pointerEventsNone {
   pointer-events: none !important;
 }
-button{
+.loginBtn{
+  display:block;
+  margin:40px auto 0;
   background-color: #82d382 !important;
   border-style: none !important;
+  color:#fff;
+  padding:6px 15px;
+  cursor: pointer;
+  font-weight: bold;
 }
 .addUser {
   position: absolute;
@@ -175,6 +213,10 @@ button{
 }
 
 body {
-  background: rgb(45, 253, 93);
-  background: linear-gradient(0deg, rgba(45, 253, 93, 1) 0%, rgba(34, 193, 195, 1) 100%);
+  /* background: rgb(45, 253, 93);
+  background: linear-gradient(0deg, rgba(45, 253, 93, 1) 0%, rgba(34, 193, 195, 1) 100%); */
+  /* background:ghostwhite; */
+  background: #c21500; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #c21500, #ffc500); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #c21500, #ffc500); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }

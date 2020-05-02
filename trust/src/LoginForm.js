@@ -54,18 +54,21 @@ export default class LoginForm extends React.Component {
   }
   render() {
     return (
-      <form ref={this.formRef} id="logIn" onSubmit={this.onSubmit}>
-        <input placeholder="NAME" ref={this.nameRef} className=" el logInEl" />
-        <input
-          placeholder="PASSWORD"
-          ref={this.passRef}
-          className="el logInEl"
-          type="password"
-        />
-        <button className="loginBtn" type="submit">
-          Submit
-        </button>
-      </form>
+      <div className="loginDiv">
+        <h4>TRUST</h4>
+        <form ref={this.formRef} id="logIn" onSubmit={this.onSubmit}>
+          <input placeholder="Username" ref={this.nameRef} className=" el logInEl" />
+          <input
+            placeholder="Password"
+            ref={this.passRef}
+            className="el logInEl"
+            type="password"
+          />
+          <button className="loginBtn" type="submit">
+            Submit
+          </button>
+        </form>
+      </div>
     );
   }
 }
