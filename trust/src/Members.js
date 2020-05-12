@@ -2,6 +2,8 @@ import React from "react";
 import Row from "./Row";
 import Tablefooter from "./Tablefooter";
 import serialize from "form-serialize-json";
+import uuid from "./uuid";
+
 export default class Members extends React.Component {
   constructor(pr) {
     super(pr);
@@ -28,10 +30,18 @@ export default class Members extends React.Component {
       CONTACT: "PHONE",
       Address: "ADDRESS",
     };
+    this.keyToCompMap = {
+      OPTOUT: this.Optout,
+      Name: this.Textarea,
+      Email: this.Textarea,
+      Address: this.Textarea,
+      CONTACT: this.Textarea,
+    };
+    this.componentsOrder = ["OPTOUT", "Name", "Email", "CONTACT", "Address"];
     this.additionalClas = { clas: "membersHeader" };
     this.tableRef = React.createRef();
     this.alteredDataIndex = 0;
-    this.alerter = this.alerter.bind(this);
+    this.onCellClick = this.onCellClick.bind(this);
     this.removeEditMode = this.removeEditMode.bind(this);
     this.modifyData = this.modifyData.bind(this);
     this.openForm = this.openForm.bind(this);
@@ -63,6 +73,7 @@ export default class Members extends React.Component {
   }
 
   removeEditMode() {
+    console.log("remove edit mode...");
     this.newState = this.getNextState();
     if (this.alteredData) {
       this.alteredData.isEditingActive = false;
@@ -103,7 +114,7 @@ export default class Members extends React.Component {
     return;
   }
 
-  alerter(event, obj, key) {
+  onCellClick(event, obj, key) {
     event.stopPropagation();
     console.log("alerter....", obj);
     if (this.alteredData) {
@@ -183,16 +194,7 @@ export default class Members extends React.Component {
     );
   }
   create_UUID() {
-    var dt = new Date().getTime();
-    var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-      /[xy]/g,
-      function (c) {
-        var r = (dt + Math.random() * 16) % 16 | 0;
-        dt = Math.floor(dt / 16);
-        return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
-      }
-    );
-    return uuid;
+    return uuid();
   }
   render() {
     const Textarea = this.Textarea;
@@ -208,19 +210,22 @@ export default class Members extends React.Component {
               : "membersTable"
           }
         >
-          <Row obj={this.headerObj} additionalClas={this.additionalClas} noEvent = {true} />
+          <Row
+            obj={this.headerObj}
+            additionalClas={this.additionalClas}
+            componentsOrder={this.componentsOrder}
+            noEvent={true}
+          />
 
           {this.state.members.map((obj, i) => {
             return (
               <Row
-                onBlur={this.removeEditMode}
+                keyToCompMap={this.keyToCompMap}
+                componentsOrder={this.componentsOrder}
                 obj={obj}
-                alerter={this.alerter}
-                Textarea={Textarea}
-                optout={Optout}
+                onCellClick={this.onCellClick}
                 additionalClas={false}
                 key={obj.rowdId}
-                rowdId={obj.rowdId}
               />
             );
           })}
@@ -237,22 +242,22 @@ export default class Members extends React.Component {
             </div>
             <div className="row">
               <label>PHONE:</label>
-              <input className=" el loginEl"  name="CONTACT" type="text" />
+              <input className=" el loginEl" name="CONTACT" type="text" />
             </div>
             <div className="row">
               <label>ADDRESS:</label>
-              <input className="el loginEl"  name="Address" type="text" />
+              <input className="el loginEl" name="Address" type="text" />
             </div>
             <div className="row">
               <button
                 onClick={() =>
                   this.addUser(serialize(document.querySelector(".addUser")))
                 }
-                style={{marginRight: "15%" }}
+                style={{ marginRight: "15%" }}
               >
                 OK
               </button>
-              <button onClick={this.unMountForm}  style={{ marginRight: "15%" }}>
+              <button onClick={this.unMountForm} style={{ marginRight: "15%" }}>
                 CANCEL
               </button>
             </div>
