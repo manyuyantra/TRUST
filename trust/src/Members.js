@@ -9,7 +9,7 @@ export default class Members extends React.Component {
     super(pr);
     let arr = [];
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 21; i++) {
       arr.push({
         Name: "Dummy",
         Email: "DDUMMY@MAILME.COM",
@@ -37,6 +37,13 @@ export default class Members extends React.Component {
       Address: this.Textarea,
       CONTACT: this.Textarea,
     };
+    this.cellLookMap = {
+      OPTOUT: "comp",
+      Name: "text",
+      Email: "text",
+      Address: "text",
+      CONTACT: "text",
+    };
     this.componentsOrder = ["OPTOUT", "Name", "Email", "CONTACT", "Address"];
     this.additionalClas = { clas: "membersHeader" };
     this.tableRef = React.createRef();
@@ -52,15 +59,7 @@ export default class Members extends React.Component {
     this.setState({ isAddUserActive: false });
   }
   getNextState() {
-    return this.state.members.map((el, i) => {
-      if (el.isEditingActive) {
-        let o = { ...el };
-        o.isEditingActive = false;
-        return o;
-      } else {
-        return el;
-      }
-    });
+    return this.state.members;
   }
   modifyData() {
     this.newState = this.getNextState().filter((el) => !el.OPTOUT);
@@ -73,17 +72,17 @@ export default class Members extends React.Component {
   }
 
   removeEditMode() {
-    console.log("remove edit mode...");
     this.newState = this.getNextState();
     if (this.alteredData) {
       this.alteredData.isEditingActive = false;
-      this.alteredData.k = "";
+      this.alteredData.editingProperty = "";
       this.alteredDataIndex = null;
     }
 
     this.setState(() => {
       return {
         members: this.newState,
+        isInEditMode: false,
       };
     });
   }
@@ -116,26 +115,23 @@ export default class Members extends React.Component {
 
   onCellClick(event, obj, key) {
     event.stopPropagation();
-    console.log("alerter....", obj);
     if (this.alteredData) {
       this.alteredData.isEditingActive = false;
-      this.alteredData.k = "";
+      this.alteredData.editingProperty = "";
       this.alteredDataIndex = null;
     }
     this.alteredDataIndex = this.state.members.findIndex(
       (el) => el.rowdId === obj.rowdId
     );
     this.alteredData = this.state.members[this.alteredDataIndex];
-    this.alteredData.isEditingActive = true;
-    this.alteredData.k = key;
+    this.alteredData.editingProperty = key;
 
     this.newState = this.state.members.map((el, i) => {
       if (i === this.alteredDataIndex) {
-        return { ...this.alteredData };
+        return this.alteredData;
       } else if (el.isEditingActive) {
-        let o = { ...el };
-        o.isEditingActive = false;
-        return o;
+        el.isEditingActive = false;
+        return el;
       } else {
         return el;
       }
@@ -143,6 +139,7 @@ export default class Members extends React.Component {
     this.setState(() => {
       return {
         members: this.newState,
+        isInEditMode: true,
       };
     });
   }
@@ -172,6 +169,7 @@ export default class Members extends React.Component {
         type="checkbox"
         {...props}
         checked={s}
+        onClick={(e) => e.stopPropagation()}
         onChange={(e) => {
           uS(!s);
         }}
@@ -181,7 +179,7 @@ export default class Members extends React.Component {
   Textarea(props) {
     const [s, uS] = React.useState(props.value);
     React.useEffect(() => {
-      props.obj[props.obj.k] = s;
+      props.obj[props.obj.editingProperty] = s;
     }, [s]);
     return (
       <input
@@ -221,11 +219,17 @@ export default class Members extends React.Component {
             return (
               <Row
                 keyToCompMap={this.keyToCompMap}
+                cellLookMap={this.cellLookMap}
                 componentsOrder={this.componentsOrder}
                 obj={obj}
                 onCellClick={this.onCellClick}
                 additionalClas={false}
                 key={obj.rowdId}
+                isInEditMode={
+                  this.state.isInEditMode && this.alteredData === obj
+                    ? true
+                    : false
+                }
               />
             );
           })}
