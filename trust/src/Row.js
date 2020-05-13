@@ -6,7 +6,7 @@ function Cell(props) {
   const Comp = props.keyToCompMap[el];
   const cb = React.useCallback((event) => {
     props.onCellClick(event, props.obj, el);
-  });
+  },[]);
   return (
     <div className="cell" onClick={cb}>
       {(props.isInEditMode && props.obj.editingProperty === el) ||
