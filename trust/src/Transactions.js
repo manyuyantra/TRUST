@@ -51,12 +51,12 @@ export default class Transactions extends React.Component {
     return (
       <TableComponent
         componentsOrder={this.componentsOrder}
-        cellLookMap={this.keyToCompMap}
+        defaultLookMap={this.keyToCompMap}
         keyToCompMap={this.keyToCompMap}
         headerObj={this.headerObj}
         additionalClas={this.additionalClas}
         members={this.state.members}
-        noPointerEvents={true}
+        tableBodyClass = "pointerEventsNone"      
       ></TableComponent>
     );
   }

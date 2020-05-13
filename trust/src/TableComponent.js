@@ -14,7 +14,7 @@ export default class TableComponent extends React.Component {
       noPointerEvents: props.noPointerEvents ? true : false,
     };
     this.keyToCompMap = props.keyToCompMap;
-    this.cellLookMap = props.cellLookMap;
+    this.defaultLookMap = props.defaultLookMap;
     this.componentsOrder = props.componentsOrder;
     this.headerObj = props.headerObj;
     this.onCellClick = this.onCellClick.bind(this);
@@ -106,11 +106,11 @@ export default class TableComponent extends React.Component {
           return (
             <Row
               keyToCompMap={this.keyToCompMap}
-              cellLookMap={this.cellLookMap}
+              defaultLookMap={this.defaultLookMap}
               componentsOrder={this.componentsOrder}
               obj={obj}
               onCellClick={this.onCellClick}
-              additionalClas={false}
+              additionalClas={this.props.tableBodyClass}
               key={obj.rowdId}
               isInEditMode={
                 this.state.isInEditMode && this.alteredData === obj
