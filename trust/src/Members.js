@@ -37,7 +37,7 @@ export default class Members extends React.Component {
       Address: this.Textarea,
       CONTACT: this.Textarea,
     };
-    this.cellLookMap = {
+    this.defaultLookMap = {
       OPTOUT: "comp",
       Name: "text",
       Email: "text",
@@ -145,7 +145,7 @@ export default class Members extends React.Component {
       <>
         <TableComponent
           componentsOrder={this.componentsOrder}
-          cellLookMap={this.cellLookMap}
+          defaultLookMap={this.defaultLookMap}
           keyToCompMap={this.keyToCompMap}
           headerObj={this.headerObj}
           additionalClas={this.additionalClas}

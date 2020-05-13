@@ -6,11 +6,11 @@ function Cell(props) {
   const Comp = props.keyToCompMap[el];
   const cb = React.useCallback((event) => {
     props.onCellClick(event, props.obj, el);
-  },[]);
+  }, []);
   return (
     <div className="cell" onClick={cb}>
       {(props.isInEditMode && props.obj.editingProperty === el) ||
-      props.cellLookMap !== null && props.cellLookMap[el] === "comp" ? (
+      (props.defaultLookMap !== null && props.defaultLookMap[el] === "comp") ? (
         <Comp
           obj={props.obj}
           onBlur={props.onBlur}
@@ -62,7 +62,14 @@ class Row extends React.PureComponent {
       });
     }
     return (
-      <div key={this.props.rowdId} className="membersRow">
+      <div
+        key={this.props.rowdId}
+        className={
+          this.props.additionalClas
+            ? this.props.additionalClas + " membersRow"
+            : "membersRow"
+        }
+      >
         {children}
       </div>
     );
@@ -83,7 +90,7 @@ class Row extends React.PureComponent {
 }
 
 Row.defaultProps = {
-  onCellClick: ()=>{},
-  cellLookMap:null
+  onCellClick: () => {},
+  defaultLookMap: null,
 };
 export default Row;
