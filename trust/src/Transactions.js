@@ -1,19 +1,21 @@
 import React from "react";
 import Row from "./Row";
 import uuid from "./uuid";
+import TableComponent from "./TableComponent";
 
 export default class Transactions extends React.Component {
   constructor(props) {
     super(props);
+    this.Input = this.Input.bind(this);
     this.headerObj = {
       NAME: "NAME",
       "CREDIT AMOUNT": "CREDIT AMOUNT",
       DATETIME: "DATE AND TIME",
     };
     this.keyToCompMap = {
-      NAME: "text",
-      "CREDIT AMOUNT": "text",
-      DATETIME: "text",
+      NAME: this.Input,
+      "CREDIT AMOUNT": this.Input,
+      DATETIME: this.Input,
     };
     let arr = [];
     for (let i = 0; i < 21; i++) {
@@ -28,39 +30,34 @@ export default class Transactions extends React.Component {
     };
     this.additionalClas = { clas: "membersHeader" };
     this.componentsOrder = ["NAME", "CREDIT AMOUNT", "DATETIME"];
-    this.generateHeader = this.generateHeader.bind(this);
-    this.generateBody = this.generateBody.bind(this);
   }
-  generateHeader() {
+  Input(props) {
+    const [s, uS] = React.useState(props.value);
+    React.useEffect(() => {
+      props.obj[props.obj.editingProperty] = s;
+    }, [s]);
     return (
-      <Row
-        obj={this.headerObj}
-        additionalClas={this.additionalClas}
-        componentsOrder={this.componentsOrder}
-        noEvent={true}
-        key={uuid()}
-      ></Row>
+      <input
+        onChange={(e) => {
+          uS(e.target.value);
+        }}
+        autoFocus
+        value={s}
+      />
     );
   }
-  generateBody() {
-    return this.state.members.map((obj, i) => {
-      return (
-        <Row
-          obj={obj}
-          componentsOrder={this.componentsOrder}
-          noEvent={true}
-          key={uuid()}
-          keyToCompMap={this.keyToCompMap}
-        />
-      );
-    });
-  }
+
   render() {
     return (
-      <div ref={this.tableRef} className="membersTable">
-        <>{this.generateHeader()}</>
-        <>{this.generateBody()}</>
-      </div>
+      <TableComponent
+        componentsOrder={this.componentsOrder}
+        cellLookMap={this.keyToCompMap}
+        keyToCompMap={this.keyToCompMap}
+        headerObj={this.headerObj}
+        additionalClas={this.additionalClas}
+        members={this.state.members}
+        noPointerEvents={true}
+      ></TableComponent>
     );
   }
 }

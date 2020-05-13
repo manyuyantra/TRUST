@@ -3,6 +3,7 @@ import Row from "./Row";
 import Tablefooter from "./Tablefooter";
 import serialize from "form-serialize-json";
 import uuid from "./uuid";
+import TableComponent from "./TableComponent";
 
 export default class Members extends React.Component {
   constructor(pr) {
@@ -16,7 +17,6 @@ export default class Members extends React.Component {
         CONTACT: "#922311",
         Address: "#123, street number,city, state",
         OPTOUT: false,
-        rowdId: this.create_UUID(),
       });
     }
     this.state = {
@@ -48,8 +48,6 @@ export default class Members extends React.Component {
     this.additionalClas = { clas: "membersHeader" };
     this.tableRef = React.createRef();
     this.alteredDataIndex = 0;
-    this.onCellClick = this.onCellClick.bind(this);
-    this.removeEditMode = this.removeEditMode.bind(this);
     this.modifyData = this.modifyData.bind(this);
     this.openForm = this.openForm.bind(this);
     this.getNextState = this.getNextState.bind(this);
@@ -71,34 +69,9 @@ export default class Members extends React.Component {
     });
   }
 
-  removeEditMode() {
-    this.newState = this.getNextState();
-    if (this.alteredData) {
-      this.alteredData.isEditingActive = false;
-      this.alteredData.editingProperty = "";
-      this.alteredDataIndex = null;
-    }
-
-    this.setState(() => {
-      return {
-        members: this.newState,
-        isInEditMode: false,
-      };
-    });
-  }
-  componentDidMount() {
-    this.tableRef.current.addEventListener(
-      "click",
-      () => {
-        if (this.alteredData) {
-          this.removeEditMode();
-        }
-      },
-      true
-    );
-  }
+  componentDidMount() {}
   addUser(obj) {
-    const newObj = { ...obj, OPTOUT: false, rowdId: this.create_UUID() };
+    const newObj = { ...obj, OPTOUT: false };
     this.setState({ isAddUserActive: false });
     const next = [newObj, ...this.getNextState()];
     this.setState(() => {
@@ -113,36 +86,6 @@ export default class Members extends React.Component {
     return;
   }
 
-  onCellClick(event, obj, key) {
-    event.stopPropagation();
-    if (this.alteredData) {
-      this.alteredData.isEditingActive = false;
-      this.alteredData.editingProperty = "";
-      this.alteredDataIndex = null;
-    }
-    this.alteredDataIndex = this.state.members.findIndex(
-      (el) => el.rowdId === obj.rowdId
-    );
-    this.alteredData = this.state.members[this.alteredDataIndex];
-    this.alteredData.editingProperty = key;
-
-    this.newState = this.state.members.map((el, i) => {
-      if (i === this.alteredDataIndex) {
-        return this.alteredData;
-      } else if (el.isEditingActive) {
-        el.isEditingActive = false;
-        return el;
-      } else {
-        return el;
-      }
-    });
-    this.setState(() => {
-      return {
-        members: this.newState,
-        isInEditMode: true,
-      };
-    });
-  }
   helper() {
     alert(`
         1) TO REMOVE USERS 
@@ -200,40 +143,14 @@ export default class Members extends React.Component {
 
     return (
       <>
-        <div
-          ref={this.tableRef}
-          className={
-            this.state.isAddUserActive
-              ? "membersTable pointerEventsNone"
-              : "membersTable"
-          }
-        >
-          <Row
-            obj={this.headerObj}
-            additionalClas={this.additionalClas}
-            componentsOrder={this.componentsOrder}
-            noEvent={true}
-          />
-
-          {this.state.members.map((obj, i) => {
-            return (
-              <Row
-                keyToCompMap={this.keyToCompMap}
-                cellLookMap={this.cellLookMap}
-                componentsOrder={this.componentsOrder}
-                obj={obj}
-                onCellClick={this.onCellClick}
-                additionalClas={false}
-                key={obj.rowdId}
-                isInEditMode={
-                  this.state.isInEditMode && this.alteredData === obj
-                    ? true
-                    : false
-                }
-              />
-            );
-          })}
-        </div>
+        <TableComponent
+          componentsOrder={this.componentsOrder}
+          cellLookMap={this.cellLookMap}
+          keyToCompMap={this.keyToCompMap}
+          headerObj={this.headerObj}
+          additionalClas={this.additionalClas}
+          members={this.state.members}
+        ></TableComponent>
         {this.state.isAddUserActive ? (
           <form className="addUser" onSubmit={(e) => e.preventDefault()}>
             <div className="row">
