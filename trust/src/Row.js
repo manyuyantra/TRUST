@@ -7,7 +7,6 @@ function Cell(props) {
   const cb = React.useCallback((event) => {
     props.onCellClick(event, props.obj, el);
   });
-  debugger;
   return (
     <div className="cell" onClick={cb}>
       {(props.isInEditMode && props.obj.editingProperty === el) ||
