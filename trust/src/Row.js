@@ -1,5 +1,28 @@
-import React from "react";
+import React, { useMemo } from "react";
 import uuid from "./uuid";
+
+function Cell(props) {
+  const el = props.el;
+  const Comp = props.keyToCompMap[el];
+  const cb = React.useCallback((event) => {
+    props.onCellClick(event, props.obj, el);
+  });
+  return (
+    <div className="cell" onClick={cb}>
+      {(props.isInEditMode && props.obj.editingProperty === el) ||
+      props.cellLookMap !== null && props.cellLookMap[el] === "comp" ? (
+        <Comp
+          obj={props.obj}
+          onBlur={props.onBlur}
+          value={props.obj[el]}
+        ></Comp>
+      ) : (
+        props.obj[el]
+      )}
+    </div>
+  );
+}
+Cell = React.memo(Cell);
 class Row extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -27,45 +50,28 @@ class Row extends React.PureComponent {
     );
   }
   generateNormal() {
+    const children = [];
+    {
+      this.props.componentsOrder.forEach((el, i) => {
+        if (this.props.obj.editingProperty === el) {
+          children.push(<Cell {...this.props} el={el}></Cell>);
+        } else {
+          const obj = { ...this.props, isInEditMode: false };
+          children.push(<Cell {...obj} el={el}></Cell>);
+        }
+      });
+    }
     return (
       <div key={this.props.rowdId} className="membersRow">
-        {this.props.componentsOrder.map((el, i) => {
-          const Comp = this.props.keyToCompMap[el];
-
-          return (
-            <div
-              className="cell"
-              key={uuid()}
-              onClick={(event) => {
-                this.props.onCellClick(event, this.props.obj, el);
-              }}
-            >
-              {this.props.obj.isEditingActive && this.props.obj.k === el ? (
-                <Comp
-                  obj={this.props.obj}
-                  onBlur={this.props.onBlur}
-                  value={this.props.obj[el]}
-                ></Comp>
-              ) : (
-                this.props.obj[el]
-              )}
-            </div>
-          );
-        })}
+        {children}
       </div>
     );
   }
   render() {
-    const Textarea = this.props.Textarea;
-    const obj = this.props.obj;
-    const onCellClick = this.props.onCellClick;
-    const Optout = this.props.optout;
-    const noEvent = this.props.noEvent;
-    const keyToCompMap = this.props.keyToCompMap;
-
     const isHeader =
       this.props.additionalClas &&
       this.props.additionalClas.clas == "membersHeader";
+
     var Result = null;
     if (isHeader) {
       Result = this.generateHeader();
@@ -77,6 +83,7 @@ class Row extends React.PureComponent {
 }
 
 Row.defaultProps = {
-  onCellClick: null,
+  onCellClick: ()=>{},
+  cellLookMap:null
 };
 export default Row;

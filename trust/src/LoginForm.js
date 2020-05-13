@@ -57,7 +57,11 @@ export default class LoginForm extends React.Component {
       <div className="loginDiv">
         <h4>TRUST</h4>
         <form ref={this.formRef} id="logIn" onSubmit={this.onSubmit}>
-          <input placeholder="Username" ref={this.nameRef} className=" el logInEl" />
+          <input
+            placeholder="Username"
+            ref={this.nameRef}
+            className=" el logInEl"
+          />
           <input
             placeholder="Password"
             ref={this.passRef}
