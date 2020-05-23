@@ -144,7 +144,11 @@ export default class Members extends React.Component {
     return (
       <>
         <TableComponent
-          componentsOrder={this.componentsOrder}
+          componentsOrder={
+            sessionStorage.getItem("portalUser") === "admin"
+              ? this.componentsOrder
+              : ["Name", "Email", "CONTACT", "Address"]
+          }
           defaultLookMap={this.defaultLookMap}
           keyToCompMap={this.keyToCompMap}
           headerObj={this.headerObj}
@@ -184,12 +188,14 @@ export default class Members extends React.Component {
             </div>
           </form>
         ) : null}
-        <Tablefooter
-          isAddUserActive={this.state.isAddUserActive}
-          addUser={this.openForm}
-          modifyData={this.modifyData}
-          helper={this.helper}
-        ></Tablefooter>
+        {sessionStorage.getItem("portalUser") === "admin" ? (
+          <Tablefooter
+            isAddUserActive={this.state.isAddUserActive}
+            addUser={this.openForm}
+            modifyData={this.modifyData}
+            helper={this.helper}
+          ></Tablefooter>
+        ) : null}
       </>
     );
   }
