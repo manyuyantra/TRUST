@@ -11,6 +11,8 @@ class Banner extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
   onClick() {
+    sessionStorage.removeItem("trustToken");
+    sessionStorage.removeItem("");
     this.props.auth.removeAuthentication();
     this.props.history.push("/");
   }
@@ -27,7 +29,10 @@ class Banner extends React.Component {
         ref={this.elRef}
         className={this.state.visible ? "banner" : "banner displayNone"}
       >
-        <b className="bannerItem">Hi {sessionStorage.getItem("portaluser")}</b>
+        <b className="bannerItem">
+          <p>Hi</p>{" "}
+          <p className="user">{sessionStorage.getItem("portalUser")}</p>
+        </b>
         <b
           className="bannerItem"
           style={{ cursor: "pointer" }}

@@ -51,6 +51,15 @@ body {
   ;
 }
 
+.user::first-letter {
+  text-transform: capitalize;
+}
+
+.bannerItem p {
+  float: left;
+  padding-right: 10px;
+}
+
 .card {
   height: 25%;
   width: 25%;

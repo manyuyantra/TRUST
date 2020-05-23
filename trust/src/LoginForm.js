@@ -1,5 +1,6 @@
 import React from "react";
 import url from "./url";
+import axios from "axios";
 
 export default class LoginForm extends React.Component {
   constructor(props) {
@@ -11,42 +12,33 @@ export default class LoginForm extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
   onSubmit(e) {
-    const nameData = this.users.find(
-      (el) => this.nameRef.current.value === el.username
-    );
-    const passData = nameData
-      ? this.passRef.current.value === nameData.password
-      : false;
-
-    if (!this.nameRef.current.value || !this.passRef.current.value) {
-      e.preventDefault();
-      alert("Oh bad, No login with  empty values....");
-    } else if (
-      (nameData && !passData) ||
-      (!nameData && passData) ||
-      (!nameData && !passData)
-    ) {
-      console.log(this.users);
-      alert("Good guess, but either username or  password  is wrong. ");
-      e.preventDefault();
-    } else {
-      sessionStorage.setItem("portaluser", nameData.username);
+    const t = this;
+    e.preventDefault();
+    const resp = axios.post(`${url}/trust/authenticate`, {
+      username: this.nameRef.current.value,
+      password: this.passRef.current.value,
+    });
+    resp.then(function (response) {
+      if (response.status === 200) {
+        sessionStorage.setItem("trustToken", response.data.token);
+        sessionStorage.setItem("portalUser", t.nameRef.current.value);
+        t.props.auth.setAuthentication();
+        t.props.history.push("/main");
+      }
+    });
+    resp.catch(() => {
+      alert("Unauthorized");
+    });
+  }
+  componentDidMount() {
+    if (sessionStorage.getItem("trustToken")) {
       this.props.auth.setAuthentication();
       this.props.history.push("/main");
     }
-  }
-  componentDidMount() {
-    this.getUsers();
+    //this.getUsers();
     this.timer = setTimeout(() => {
       this.formRef.current && (this.formRef.current.className = "opacity1");
     }, 100);
-  }
-  async getUsers() {
-    await fetch(`${url}` + "/trust/demo/users").then((res) => {
-      res.json().then((data) => {
-        this.users = data;
-      });
-    });
   }
   componentWillUnmount() {
     clearTimeout(this.timer);
