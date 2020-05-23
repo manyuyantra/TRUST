@@ -109,7 +109,7 @@ export default class TableComponent extends React.Component {
               defaultLookMap={this.defaultLookMap}
               componentsOrder={this.componentsOrder}
               obj={obj}
-              onCellClick={this.onCellClick}
+              onCellClick={sessionStorage.getItem("portalUser") ==="admin"? this.onCellClick:()=>{}}
               additionalClas={this.props.tableBodyClass}
               key={obj.rowdId}
               isInEditMode={
