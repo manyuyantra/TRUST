@@ -20,9 +20,7 @@ export default class LoginForm extends React.Component {
     });
     resp.then(function (response) {
       if (response.status === 200) {
-        sessionStorage.setItem("trustToken", response.data.token);
-        sessionStorage.setItem("portalUser", t.nameRef.current.value);
-        t.props.auth.setAuthentication();
+        t.props.auth.setAuthentication(response.data.token,t.nameRef.current.value);
         t.props.history.push("/main");
       }
     });

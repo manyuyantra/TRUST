@@ -4,6 +4,7 @@ import Tablefooter from "./Tablefooter";
 import serialize from "form-serialize-json";
 import uuid from "./uuid";
 import TableComponent from "./TableComponent";
+import auth from './auth';
 
 export default class Members extends React.Component {
   constructor(pr) {
@@ -145,7 +146,7 @@ export default class Members extends React.Component {
       <>
         <TableComponent
           componentsOrder={
-            sessionStorage.getItem("portalUser") === "admin"
+            auth.isAdmin
               ? this.componentsOrder
               : ["Name", "Email", "CONTACT", "Address"]
           }
@@ -188,7 +189,7 @@ export default class Members extends React.Component {
             </div>
           </form>
         ) : null}
-        {sessionStorage.getItem("portalUser") === "admin" ? (
+        {auth.isAdmin ? (
           <Tablefooter
             isAddUserActive={this.state.isAddUserActive}
             addUser={this.openForm}

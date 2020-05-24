@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import auth from './auth';
 
 class Banner extends React.Component {
   constructor(props) {
@@ -11,8 +12,6 @@ class Banner extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
   onClick() {
-    sessionStorage.removeItem("trustToken");
-    sessionStorage.removeItem("");
     this.props.auth.removeAuthentication();
     this.props.history.push("/");
   }
@@ -31,7 +30,7 @@ class Banner extends React.Component {
       >
         <b className="bannerItem">
           <p>Hi</p>{" "}
-          <p className="user">{sessionStorage.getItem("portalUser")}</p>
+          <p className="user">{auth.portalUser}</p>
         </b>
         <b
           className="bannerItem"
